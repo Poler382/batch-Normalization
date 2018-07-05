@@ -46,6 +46,32 @@ class GroupNormalization (N:Int,C:Int,gr:Int){
 
   }
 
+  
+  def cal_myu(x:Array[Double])=x.sum/x.size
+  def cal_sigma(x:Array[Double],myu:Double)={
+    val M = new Array[Double](x.size).map(_ => myu)
+    val t = (x.zip(M).map{case (a,b) => a*a-2*a*b+b*b)}.sum )/ x.size
+    
+    math.sqrt(rand.nextGausssian+t)
+  }
+  def forward2(xs:Array[Array[Double]])={
+    val chnsize = xs(0).size /C
+    val bs = xs.size
+    var myulist = new Array[Double](10)
+    val x_mu = Array.ofDim[Double](xs.size,xs(0).size)
+    var grlist = new Array[Array[Double]](gr)
+    val sum = new Array [Double](gr)
+    var ave2 = new Array [Double](gr)
+    var channel_x = Array.ofDim[Double](gr,chnsize)
+
+    for (j <- 0 until xs(0).size ){
+      for(i <- 0 until xs.size){
+        channel_x(j/chnsize)=xs(i)(j)
+      }
+    }
+
+
+  }
 
 
 }
